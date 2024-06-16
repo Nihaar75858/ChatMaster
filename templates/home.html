@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatMaster</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            background-color: #FEFFD2;
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: white;
+            font-family: 'Lato', sans-serif;
+        }
+        
+        .title {
+            color: #0C0C0C;
+            font-size: 6vw;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .start {
+            font-size: 3vw;
+            text-align: center;
+            color: #FF7D29;
+            text-transform: uppercase;
+        }
+
+        button {
+            justify-content: center;
+            align-items: center;
+            background-color: #FFBF78;
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition-duration: 0.4s;
+        }
+
+        .submit {
+            margin:0;
+            margin-right:20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        pre {
+            font-size: 20px;
+            background: hsl(222, 45%, 7%);
+            padding: 2rem;
+            border-radius: 1rem;
+            color: #fff;
+            white-space: pre-wrap;
+            width: 800px;
+            margin: 20px auto;
+            box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        footer {
+            position: relative;
+            width: 100%;
+            background: #FF7D29;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0;
+        }
+        footer p {
+            font-size: 20px;
+            text-align: center;
+            color: #0C0C0C;
+            font-weight: bold;
+        }
+        .about {
+            display: flex;
+        }
+        .about a {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            border-radius: 50%;
+            margin: 0 10px;
+            color: #000000;
+        }
+    </style>
+</head>
+<body onload="speakText(); imagerec()">
+    <form method="POST" action="/">
+        <h1 class="title" data-text="ChatMaster">CHATMASTER</h1>
+        <h1 class="start">Select what you want to do</h1>
+        <h1 class="start"> Speak out your doubts</h1>
+        <div style="text-align: center">
+            <button type="button" id="recognition-button"><i class="fa-solid fa-microphone"></i></button>
+        </div>
+        <input type="hidden" name="speech_text" id="speech_text">
+        <button id="submit" type="submit">Submit</button>
+    </form>
+    <pre id="speech-text" contenteditable class="language-css" tabindex="0">{{ name1 }}</pre>
+    <br><br><br><br><br><br><br>
+    <div style="text-align: center; margin-bottom: 20px">
+        <h1 class="start"> OR </h1>
+        <h1 class="start">  Go here to search for any Image</h1>
+        <button type="button" onclick="window.location.href='http://127.0.0.1:5001'">
+            <i class="fa-sharp fa-solid fa-camera"></i>
+    </div>
+    <footer>
+        <p>CHATMASTER</p>
+        <p>Check us out on:</p>
+        <div class="about">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+        </div>
+    </footer>
+    <script>
+        const recognitionButton = document.querySelector("#recognition-button");
+        const speechTextInput = document.querySelector("#speech_text");
+        recognitionButton.addEventListener("click", () => {
+            const recognition = new webkitSpeechRecognition();
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                console.log(transcript);
+                speechTextInput.value = transcript; // Set the recognized text to the hidden input
+            };
+            recognition.start();
+        });
+
+        function speakText() {
+            const text = document.getElementById("speech-text").innerText;
+            const utterance = new SpeechSynthesisUtterance(text);
+            speechSynthesis.speak(utterance);
+        }
+        const pre = document.querySelector("pre");
+        document.addEventListener("mousemove", (e) => {
+            rotateElement(e, pre);
+        });
+    </script>
+</body>
+</html>

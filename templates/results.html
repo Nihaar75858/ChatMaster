@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ChatMaster-Results</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            background-color: #FEFFD2;
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: white;
+            font-family: 'Lato', sans-serif;
+        }
+        
+        .title {
+            color: #0C0C0C;
+            font-size: 6vw;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .start {
+            font-size: 4vw;
+            text-align: center;
+            color: #FF7D29;
+            text-transform: uppercase;
+        }
+
+        input {
+            background-color: #FFBF78;
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition-duration: 0.4s;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        footer {
+            position: relative;
+            width: 100%;
+            background: #FF7D29;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0;
+        }
+
+        footer p {
+            font-size: 20px;
+            color: #0C0C0C;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .about {
+            display: flex;
+        }
+        .about a {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            border-radius: 50%;
+            margin: 0 10px;
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">CHATMASTER</h1>
+    <h2 class="start">Uploaded Image:</h2>
+    <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="Uploaded Image">
+
+    {% if similar_images %}
+        <h2 class="start">Similar Images:</h2>
+        <ul>
+            {% for image in similar_images %}
+                <li><img src="{{ image }}" alt="Similar Image"></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    <footer>
+        <p>CHATMASTER</p>
+        <p>Check us out on:</p>
+        <div class="about">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+        </div>
+    </footer>
+</body>
+</html>
